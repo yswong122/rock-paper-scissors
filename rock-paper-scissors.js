@@ -54,7 +54,7 @@ function checkWin(playerSelection, computerSelection) {
 }
 
 function printResult(isWin, playerSelection, computerSelection) {
-  isWin ?
+  ((isWin == "win") || (isWin == "draw")) ?
     console.log(`You Win! ${playerSelection} beats ${computerSelection}.`) :
     console.log(`You Lose! ${computerSelection} beats ${playerSelection}.`);
 }
@@ -73,6 +73,8 @@ function game() {
         break;
       case "lose":
         computerWinCount++;
+        break;
+      case "draw":
         break;
     } 
   }
