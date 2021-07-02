@@ -27,10 +27,19 @@ function checkValid(playerSelection) {
   if (playerSelection == "paper" ||
     playerSelection == "rock" ||
     playerSelection == "scissors") {
-      console.log("invalid moves");
-      return false;
+      return true;
   }
-  return true;
+  console.log("invalid moves");
+  return false;
+}
+
+function promptInput() {
+  let validInput = false;
+  while (validInput == false) {
+    playerSelection = prompt("What's your move?", "");
+    validInput = checkValid(playerSelection);
+  }
+  return playerSelection;
 }
 
 function checkWin(playerSelection, computerSelection) {
@@ -55,11 +64,7 @@ function game() {
   let computerWinCount = 0;
   let playerWinCount = 0;
   for (let i = 0; i < 5; i++) {
-    let validInput = false;
-    while (validInput == false) {
-      let playerSelection = prompt("What's your move?", "");
-      checkValid(playerSelection);
-    }
+    let playerSelection = promptInput();
     let computerSelection = computerPlay();
     let result = playRound(playerSelection, computerSelection);
     switch (result) {
