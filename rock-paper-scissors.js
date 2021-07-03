@@ -43,27 +43,59 @@ function playRound(playerSelection, computerSelection) {
   }
   result = checkWin(playerSelection, computerSelection);
   printResult(result,playerSelection,computerSelection);
-  return result;
+  return updateRunningScore(result);
 }
 
 // play a game of rock paper scissors contains 5 round
 function printRunningScore() {
-  let computerWinCount = 0;
-  let playerWinCount = 0;
-  let div = document.createElement("div");
-  div.textContent = `Player: ${playerWinCount}, Computer: ${computerWinCount}`;
-  div.classList.add("running-score");
-  document.querySelector("#message").appendChild(div);
+  let playerLabel = document.createElement("p");
+  playerLabel.textContent = "Player:";
+  playerLabel.classList.add("player-label");
+  document.querySelector("#message").appendChild(playerLabel)
+
+  let playerScore = document.createElement("div");
+  playerScore.textContent = `0`;
+  playerScore.classList.add("player-score");
+  document.querySelector(".player-label").appendChild(playerScore);
+
+  let computerLabel = document.createElement("p");
+  computerLabel.textContent = "Computer:";
+  computerLabel.classList.add("computer-label");
+  document.querySelector("#message").appendChild(computerLabel)
+  let computerScore = document.createElement("div");
+  computerScore.textContent = `0`;
+  computerScore.classList.add("computer-score");
+  document.querySelector(".computer-label").appendChild(computerScore);
 }
 
-function printFinalWinner(playerWinCount, computerWinCount) {
-  if (playerWinCount > computerWinCount) {
-    console.log("You are the winner!");
-  } else if (playerWinCount == computerWinCount) {
-    console.log("Tie!");
-  } else {
-    console.log("Unfortunately, you lose...");
+function updateRunningScore(result) {
+  let computer = document.querySelector(".computer-score");
+  computerScore = parseInt(computer.textContent);
+  let player = document.querySelector(".player-score");
+  playerScore = parseInt(player.textContent);
+  if (result === "lose") {
+    computerScore += 1;
+    computer.textContent = computerScore;
+  } else if (result === "win") {
+    playerScore += 1;
+    player.textContent = playerScore;
   }
+
+  if (computerScore === 5) {
+    printFinalWinner("computer");
+  } else if (playerScore === 5) {
+    printFinalWinner("player");
+  }
+}
+
+function printFinalWinner(winner) {
+  let winnerMesage = document.createElement("div");
+  if (winner === "player") {
+    winnerMesage.textContent = "You are the winner!";
+  } else if (winner === "computer")  {
+    winnerMesage.textContent = "You Lose...";
+  }
+  document.querySelector("#message").appendChild(winnerMesage);
 }
 
 printRunningScore();
